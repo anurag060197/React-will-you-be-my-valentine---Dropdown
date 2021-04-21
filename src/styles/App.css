@@ -1,16 +1,16 @@
-h1 {
-    color: #27aedb;
-    text-align: center;
-    }
+.description{
+    display: inline-block;
+    border: 1px solid black;
+    padding: 10px;
+    margin-left: 100px;
+    width: 300px;
+    text-align: left;
     
-
-button{
-    color: #27aedb;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
 }
 
-.bg-pink{
-	background-color:pink;
+.city , .landmark , .states{
+    width: 600px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

@@ -139,55 +139,59 @@ const states = [{
 
 
 function App() {
-	const [cityArr, setCityArr] = useState(states[0].city);
-	const [townArr, setTownArr] = useState(states[0].city[0].landmarks);
-	const [currentState, setCurrentState] = useState(0);
-	const [currentCity, setCurrentCity] = useState(0);
-	const [currentLandmark, setCurrentLandmark] = useState(0);
-	const handleState = (event)=>{
-		let tempState = event.target.value;
-		setCityArr(states[tempState].city);
-		setTownArr(states[tempState].city[0].landmarks);
-		setCurrentState(tempState);
+	const[_state , set_state] = useState(0);
+	const[_city , setcity] = useState(0);
+	const[_landmark , setlandmark] = useState(0);
+
+	const handlestatechange =(e)=>{
+		set_state(e.target.value);
 	}
 
-	const handleCity = (event)=>{
-		let tempCity = event.target.value;
-		setTownArr(cityArr[tempCity].landmarks);
-		setCurrentCity(tempCity);
+	const handle_city_change = (e)=>{
+		setcity(e.target.value)
 	}
 
-	const handleTown = (event)=>{
-		let tempTown = event.target.value;
-		setCurrentLandmark(tempTown);
+	const handle_Landmark_change = (e)=>{
+		setlandmark(e.target.value)
 	}
-	// Do not alter/remove main div
+	
 	return (
 		<div id="main">
-			<span> State : </span>
-			<select id="state" onChange={handleState}>
-				{states.map((ele, index)=>(<option key={index} value={index}>{ele.name}</option>))}
-			</select><br></br><br></br>
-			<span> Cities : </span>
-			<select id="city" onChange={handleCity}>
-				{cityArr.map((ele, index)=>(<option key={index} value={index}>{ele.name}</option>))}
-			</select><br></br><br></br>
-			<span> Towns : </span>
-			<select id="landmark" onChange={handleTown}>
-				{townArr.map((ele, index)=>(<option key={index} value={index}>{ele.name}</option>))}
-			</select><br></br><br></br>
-			<div id="state-title" style={{height:"10rem", border:"black 1px solid", margin:"1rem"}}>
-				<div id="state-name">{states[currentState].name}</div>
-				<div id="state-description">{states[currentState].description}</div>
+			<div className="city">      
+				<label>State:
+					<select id="state" onChange={handlestatechange}>
+						{states.map((e,i)=>{return <option key={i} value={i}>{e.name}</option>})}
+					</select>
+				</label>
+				<div className="description"> 
+					<div id="state-title" >{states[_state].name}</div>
+					<div id="state-description" >{states[_state].description}</div>
+				</div>            
 			</div>
-			<div id="city-title" style={{height:"10rem", border:"black 1px solid", margin:"1rem"}}>
-				<div id="city-name">{states[currentState].city[currentState].name}</div>
-				<div id="city-description">{states[currentState].city[currentState].description}</div>
+			<hr />
+			<div className="city">      
+				<label>City:
+					<select id="city"  onChange={ handle_city_change}>
+						{states[_state].city.map((e,i)=>{ return <option key={i} value={i}>{e.name}</option>})}
+					</select>   
+				</label>             
+				<div className="description"> 
+					<div id="city-title">{states[_state].city[_city].name}</div>
+					<div id="city-description">{states[_state].city[_city].description}</div>
+				</div>
 			</div>
-			<div id="landmark-title" style={{height:"10rem", border:"black 1px solid", margin:"1rem"}}>
-				<div id="landmark-name">{states[currentState].city[currentCity].landmarks[currentLandmark].name}</div>
-				<div id="landmark-description">{states[currentState].city[currentCity].landmarks[currentLandmark].description}</div>
-			</div>
+			<hr />
+			<div className="city">      
+				<label>landmark:
+					<select id="landmark"  onChange={handle_Landmark_change}>
+						{states[_state].city[_city].landmarks.map((ev,i)=>{return <option key={i} value={i}>{ev.name}</option>})}
+					</select>
+				</label>
+				<div className="description"> 
+					<div id="landmark-title">{states[_state].city[_city].landmarks[_landmark].name}</div>
+					<div id="landmark-description">{states[_state].city[_city].landmarks[_landmark].description}</div>
+				</div>
+			</div>		
 		</div>
 	);
 }
